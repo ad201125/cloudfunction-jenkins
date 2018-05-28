@@ -13,9 +13,9 @@ As a Full Stack Web Developers we specialize in writing applications for the web
 The application is an Object-oriented programming (OOP) written in [python](https://www.python.org/about/) to generate a HTML web-page.
 
 ### Demo
-HTML web-page demonstrating the end result of the project, [check it out!](url).
+HTML web-page demonstrating the end result of the project, [check it out!](https://muhammadosta.github.io/UDACITY-STUDENT-PROJECTS-Movie-Trailer-Website/DEMO.html).
 
-NOTE: if the website didn't render JavaScript right, the trailer might not run, [check this DEMO](url) instead.
+NOTE: if the website didn't render JavaScript right, the trailer might not run, [check this DEMO](http://mo.exno.net/movie-trailer-website/DEMO.html) instead.
 
 ### How to use (testing)
  - **Pre-requirement:**
