@@ -135,7 +135,7 @@ main_page_content = '''
     <div class="container">
     <div class="navbar navbar-fixed-top header-page" role="navigation">
     <h4 class="title-page">My Favorite Movies</h4>
-    <h5><a href="https://tinyurl.com/udacity-fsnd" target="_blank">(Movie Trailer Website | Udacity FSND STUDENT PROJECT)</a></h5>
+    <h5><a href="https://github.com/MuhammadOsta/UDACITY-STUDENT-PROJECTS-Movie-Trailer-Website" target="_blank">(Movie Trailer Website | Udacity FSND STUDENT PROJECT)</a></h5>
     </div>
     </div>
 
