@@ -9,14 +9,9 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh """
-                pwd
-                pip 3.10 install google-cloud-pubsub
-                pip 3.10 install google-cloud-storage
-                pip 3.10 install google-api-core
-                pip 3.10 install google-bigquery
-                pip 3.10 install pybase64
-                """
+                sh 'python3.10 -m pip install --upgrade pip'
+                sh 'python3.10 -m pip install google-cloud-pubsub'
+                sh 'python3.10 -m pip install google-cloud-storage'
             }
         }
         stage('Clone Repository') {
