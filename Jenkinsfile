@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10'
+            args '-u root' // Run as root to install packages
+        }
+    }
     environment {
         GCP_PROJECT = 'lustrous-bit-313410'
         GCS_BUCKET = 'ad-payload-bucket'
@@ -9,9 +14,9 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'python3.10 -m pip install --upgrade pip'
-                sh 'python3.10 -m pip install google-cloud-pubsub'
-                sh 'python3.10 -m pip install google-cloud-storage'
+                sh 'pip install --upgrade pip'
+                sh 'pip install google-cloud-pubsub'
+                sh 'pip install google-cloud-storage'
             }
         }
         stage('Clone Repository') {
