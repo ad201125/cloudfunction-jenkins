@@ -9,7 +9,14 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh """
+                pwd
+                pip 3.10 install google-cloud-pubsub
+                pip 3.10 install google-cloud-storage
+                pip 3.10 install google-api-core
+                pip 3.10 install google-bigquery
+                pip 3.10 install pybase64
+                """
             }
         }
         stage('Clone Repository') {
