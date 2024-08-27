@@ -1,0 +1,16 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - pubsub_to_pubsub
+  - --runtime
+  - python39
+  - --trigger-topic
+  - input_topic
+  - --entry-point
+  - pubsub_to_pubsub
+  - --project
+  - lustrous-bit-313410
+  - --region
+  - asia-south1
