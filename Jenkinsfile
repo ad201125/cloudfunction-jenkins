@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GCP_PROJECT = 'lustrous-bit-313410'
+        GCP_PROJECT_NAME = 'lustrous-bit-313410'
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
