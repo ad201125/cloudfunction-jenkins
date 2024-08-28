@@ -10,13 +10,27 @@ pipeline {
          stage('Install Dependencies') {
             steps {
                 script {
-                    // Use the full paths to python and pip from your environment
                     sh '''
-                        /home/ayush_deep/myenv/bin/python3 -m venv /home/ayush_deep/myenv
-                        . /home/ayush_deep/myenv/bin/activate
-                        /home/ayush_deep/myenv/bin/pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
-                        /home/ayush_deep/myenv/bin/python --version
-                        /home/ayush_deep/myenv/bin/pip --version
+                        # Check if the virtual environment already exists
+                        if [ -d "/home/ayush_deep/myenv" ]; then
+                            echo "Virtual environment exists, activating it."
+                            . /home/ayush_deep/myenv/bin/activate
+                        else
+                            echo "Virtual environment not found, creating it."
+                            /usr/bin/python3 -m venv /home/ayush_deep/myenv
+                            . /home/ayush_deep/myenv/bin/activate
+                        fi
+                        
+                        # Confirming python and pip paths
+                        echo "Python Path: $(which python)"
+                        echo "Pip Path: $(which pip)"
+
+                        # Upgrade necessary packages
+                        pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
+                        
+                        # Display Python and Pip versions
+                        python --version
+                        pip --version
                     '''
                 }
             }
