@@ -7,13 +7,25 @@ pipeline {
         OUTPUT_TOPIC = 'output_topic'
     }
     stages {
+        stage('Setup Python Environment') {
+            steps {
+                script {
+                    sh '''
+                    python3 -m venv myenv
+                    source myenv/bin/activate
+                    python --version
+                    pip --version
+                    '''
+                }
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 script {
                     sh '''
-                    python -m venv myenv
                     source myenv/bin/activate
-                    /home/ayush_deep/myenv/bin/pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
+                    pip install --upgrade pip setuptools
+                    pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
                     '''
                 }
             }
