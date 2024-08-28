@@ -7,16 +7,16 @@ pipeline {
         OUTPUT_TOPIC = 'output_topic'
     }
     stages {
-        stage('Install Dependencies') {
+         stage('Install Dependencies') {
             steps {
                 script {
-                    // Use dot to source the virtual environment and install required packages
+                    // Use the full paths to python and pip from your environment
                     sh '''
-                        python -m venv /home/ayush_deep/myenv
+                        /home/ayush_deep/myenv/bin/python3 -m venv /home/ayush_deep/myenv
                         . /home/ayush_deep/myenv/bin/activate
-                        pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
-                        python --version
-                        pip --version
+                        /home/ayush_deep/myenv/bin/pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
+                        /home/ayush_deep/myenv/bin/python --version
+                        /home/ayush_deep/myenv/bin/pip --version
                     '''
                 }
             }
