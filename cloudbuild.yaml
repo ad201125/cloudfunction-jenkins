@@ -1,16 +1,26 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
-  - functions
-  - deploy
-  - pubsub_to_pubsub
-  - --runtime
-  - python39
-  - --trigger-topic
-  - input_topic
-  - --entry-point
-  - pubsub_to_pubsub
-  - --project
-  - lustrous-bit-313410
-  - --region
-  - asia-south1
+    - functions
+    - deploy
+    - pubsub_to_pubsub
+    - --runtime
+    - python39
+    - --trigger-topic
+    - input_topic
+    - --entry-point
+    - pubsub_to_pubsub
+    - --project
+    - lustrous-bit-313410
+    - --region
+    - asia-south1
+  id: 'deploy-cf'
+
+- name: 'gcr.io/cloud-builders/curl'
+  args:
+    - '-u'
+    - 'adjkuser:Qwertyuiop20!'
+    - '-X'
+    - 'POST'
+    - 'JENKINS_URL/job/cloudfunction-jenkins-job/build?token=test_token'
+  id: 'trigger-test'
