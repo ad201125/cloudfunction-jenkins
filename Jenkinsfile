@@ -9,7 +9,13 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh '/home/ayush_deep/myenv/bin/pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64'
+                script {
+                    sh '''
+                    python3 -m venv myenv
+                    source myenv/bin/activate
+                    /home/ayush_deep/myenv/bin/pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
+                    '''
+                }
             }
         }
         stage('Clone Repository') {
