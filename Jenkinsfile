@@ -7,34 +7,6 @@ pipeline {
         OUTPUT_TOPIC = 'output_topic'
     }
     stages {
-         stage('Install Dependencies') {
-            steps {
-                script {
-                    sh '''
-                        # Check if the virtual environment already exists
-                        if [ -d "/home/ayush_deep/myenv" ]; then
-                            echo "Virtual environment exists, activating it."
-                            . /home/ayush_deep/myenv/bin/activate
-                        else
-                            echo "Virtual environment not found, creating it."
-                            /usr/bin/python3 -m venv /home/ayush_deep/myenv
-                            . /home/ayush_deep/myenv/bin/activate
-                        fi
-                        
-                        # Confirming python and pip paths
-                        echo "Python Path: $(which python)"
-                        echo "Pip Path: $(which pip)"
-
-                        # Upgrade necessary packages
-                        pip install --upgrade google-cloud-pubsub google-cloud-storage google-api-core google-cloud-bigquery pybase64
-                        
-                        # Display Python and Pip versions
-                        python --version
-                        pip --version
-                    '''
-                }
-            }
-        }
         stage('Clone Repository') {
             steps {
                 deleteDir()
