@@ -5,7 +5,7 @@ pipeline {
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PYTHON_PATH = '/home/ayush_deep/myenv/bin/python'
+        PYTHON_PATH = '/home/ayush_deep/myenv/bin/python3' // Use python3 explicitly
     }
     stages {
         stage('Clone Repository') {
@@ -43,12 +43,13 @@ pipeline {
                 '''
             }
         }
-        stage('Debug') {
+        stage('Debug Environment') {
             steps {
                 sh '''
+                    echo "Checking Python version:"
+                    ${PYTHON_PATH} --version
                     echo "Current PATH: $PATH"
-                    ls -la /home/ayush_deep/myenv/bin
-                    which python
+                    which python3
                 '''
             }
         }
