@@ -5,7 +5,7 @@ pipeline {
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PYTHON_PATH = '/home/ayush_deep/myenv/bin/python3' // Use python3 explicitly
+        PYTHON_PATH = '/home/ayush_deep/myenv/bin/python3.11.11.11.11.11.11.11.11.11.11.11' // Use python3 explicitly
     }
     stages {
         stage('Clone Repository') {
