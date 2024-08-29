@@ -43,6 +43,15 @@ pipeline {
                 '''
             }
         }
+        stage('Debug') {
+            steps {
+                sh '''
+                    echo "Current PATH: $PATH"
+                    ls -la /home/ayush_deep/myenv/bin
+                    which python
+                '''
+            }
+        }
     }
 }
 
