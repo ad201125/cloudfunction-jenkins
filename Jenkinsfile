@@ -1,11 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.11'  // Use the official Python 3.11 Docker image
+            args '-v /home/ayush_deep/myenv:/myenv'  // Mount the virtual environment if needed
+        }
+    }
     environment {
         GCP_PROJECT_NAME = 'lustrous-bit-313410'
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PYTHON_PATH = '/home/ayush_deep/myenv/bin/python3.11' // Use python3 explicitly
+        PYTHON_PATH = '/myenv/bin/python3.11'  // Use python3 explicitly
     }
     stages {
         stage('Clone Repository') {
