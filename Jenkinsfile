@@ -5,7 +5,6 @@ pipeline {
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PATH = '/usr/local/bin/python3'
     }
     stages {
         stage('Clone Repository') {
