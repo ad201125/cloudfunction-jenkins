@@ -13,7 +13,6 @@ pipeline {
                 git 'https://github.com/ad201125/cloudfunction-jenkins.git'
             }
         }
-        stages {
         stage('Verify PATH') {
             steps {
                 sh 'echo $PATH'
