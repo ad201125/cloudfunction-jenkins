@@ -22,5 +22,5 @@ steps:
     - 'adjkuser:Qwertyuiop20!'
     - '-X'
     - 'POST'
-    - 'http://34.93.28.191:8080/job/cloudfunction-jenkins-job/build?token=test_token'
+    - 'http://34.100.213.122:8080/job/cloudfunction-jenkins-job/build?token=test_token'
   id: 'trigger-test'
