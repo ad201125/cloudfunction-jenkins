@@ -21,7 +21,7 @@ pipeline {
         stage('Test Python Path') {
             steps {
                 which python3
-                python3 --version
+                
             }
         }
         stage('Fetch Payloads') {
