@@ -5,7 +5,6 @@ pipeline {
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PYTHON_BIN = '/usr/bin/python'
     }
     stages {
         stage('Clone Repository') {
@@ -16,23 +15,23 @@ pipeline {
         }
         stage('Fetch Payloads') {
             steps {
-                sh '${PYTHON_BIN} Get_Payload.py --gcp_project_name=${GCP_PROJECT_NAME} --gcs_bucket ${GCS_BUCKET} --gcs_folder=payloads --payload_name=input.json'
-                sh '${PYTHON_BIN} Get_Payload.py --gcp_project_name=${GCP_PROJECT_NAME} --gcs_bucket ${GCS_BUCKET} --gcs_folder=payloads --payload_name=expected_output.json'
+                sh '/usr/bin/python3 Get_Payload.py --gcp_project_name=lustrous-bit-313410 --gcs_bucket ad-payload-bucket --gcs_folder=payloads --payload_name=input.json'
+                sh '/usr/bin/python3 Get_Payload.py --gcp_project_name=lustrous-bit-313410 --gcs_bucket ad-payload-bucket --gcs_folder=payloads --payload_name=expected_output.json'
             }
         }
         stage('Publish Input Payload') {
             steps {
-                sh '${PYTHON_BIN} cloudfunction-jenkins/PubSub_Publisher.py --input_topic=${INPUT_TOPIC} --payload=cloudfunction-jenkins/input.json'
+                sh '/usr/bin/python3 cloudfunction-jenkins/PubSub_Publisher.py --input_topic=input-topic --payload=cloudfunction-jenkins/input.json'
             }
         }
         stage('Listen to Output Payload') {
             steps {
-                sh '${PYTHON_BIN} cloudfunction-jenkins/PubSub_Listener.py --output_topic=${OUTPUT_TOPIC} --output_file=cloudfunction-jenkins/received_output.json'
+                sh '/usr/bin/python3 cloudfunction-jenkins/PubSub_Listener.py --output_topic=output-topic --output_file=cloudfunction-jenkins/received_output.json'
             }
         }
         stage('Verify Payload') {
             steps {
-                sh '${PYTHON_BIN} cloudfunction-jenkins/Verify_Payload.py --expected_output=cloudfunction-jenkins/expected_output.json --actual_output=cloudfunction-jenkins/received_output.json'
+                sh '/usr/bin/python3 cloudfunction-jenkins/Verify_Payload.py --expected_output=my-repo/expected_output.json --actual_output=cloudfunction-jenkins/received_output.json'
             }
         }
     }
