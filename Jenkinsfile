@@ -15,13 +15,13 @@ pipeline {
         }
         stage('Verify PATH') {
             steps {
-                sh 'echo test'
+                echo test
             }
         }
         stage('Test Python Path') {
             steps {
-                sh 'which python3'
-                sh 'python3 --version'
+                which python3
+                python3 --version
             }
         }
         stage('Fetch Payloads') {
