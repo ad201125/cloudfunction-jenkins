@@ -20,6 +20,12 @@ pipeline {
                 sh 'echo $PATH'
             }
         }
+        stage('Test Python Path') {
+            steps {
+                sh 'which python3'
+                sh 'python3 --version'
+           }
+        }
         stage('Fetch Payloads') {
             steps {
                 sh 'python3 Get_Payload.py --gcp_project_name=${GCP_PROJECT_NAME} --gcs_bucket=${GCS_BUCKET} --gcs_folder=payloads --payload_name=input.json'
