@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Verify PATH') {
             steps {
-                sh 'echo $PATH'
+                sh 'echo test'
             }
         }
         stage('Test Python Path') {
