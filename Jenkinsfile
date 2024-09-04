@@ -13,6 +13,12 @@ pipeline {
                 git 'https://github.com/ad201125/cloudfunction-jenkins.git'
             }
         }
+        stages {
+        stage('Verify PATH') {
+            steps {
+                sh 'echo $PATH'
+            }
+        }
         stage('Fetch Payloads') {
             steps {
                 sh '/usr/bin/python3 Get_Payload.py --gcp_project_name=lustrous-bit-313410 --gcs_bucket ad-payload-bucket --gcs_folder=payloads --payload_name=input.json'
