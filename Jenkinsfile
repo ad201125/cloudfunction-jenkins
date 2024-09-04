@@ -5,8 +5,6 @@ pipeline {
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        // Ensure the PATH includes directories where python3 might be located
-        PATH = "${env.PATH}:/usr/bin:/usr/local/bin"
     }
     stages {
         stage('Clone Repository') {
@@ -24,7 +22,7 @@ pipeline {
             steps {
                 sh 'which python3'
                 sh 'python3 --version'
-           }
+            }
         }
         stage('Fetch Payloads') {
             steps {
