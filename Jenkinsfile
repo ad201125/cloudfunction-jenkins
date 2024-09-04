@@ -1,18 +1,11 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11'  // Use the official Python 3.11 Docker image
-            args '-v /home/ayush_deep/myenv:/myenv'  // Mount the virtual environment if needed
-        }
-    }
+    agent any
     environment {
         GCP_PROJECT_NAME = 'lustrous-bit-313410'
         GCS_BUCKET = 'ad-payload-bucket'
         INPUT_TOPIC = 'input_topic'
         OUTPUT_TOPIC = 'output_topic'
-        PYTHON_PATH = '/myenv/bin/python3.11'  // Use python3 explicitly
     }
-    stages {
         stage('Clone Repository') {
             steps {
                 deleteDir()
@@ -21,43 +14,24 @@ pipeline {
         }
         stage('Fetch Payloads') {
             steps {
-                sh '''
-                    ${PYTHON_PATH} Get_Payload.py --gcp_project_name=${GCP_PROJECT_NAME} --gcs_bucket=${GCS_BUCKET} --gcs_folder=payloads --payload_name=input.json
-                    ${PYTHON_PATH} Get_Payload.py --gcp_project_name=${GCP_PROJECT_NAME} --gcs_bucket=${GCS_BUCKET} --gcs_folder=payloads --payload_name=expected_output.json
-                '''
+                sh 'python Get_Payload.py --gcp_project_name=lustrous-bit-313410 --gcs_bucket ad-payload-bucket --gcs_folder=payloads --payload_name=input.json'
+                sh 'python Get_Payload.py --gcp_project_name=lustrous-bit-313410 --gcs_bucket ad-payload-bucket --gcs_folder=payloads --payload_name=expected_output.json'
             }
         }
         stage('Publish Input Payload') {
             steps {
-                sh '''
-                    ${PYTHON_PATH} cloudfunction-jenkins/PubSub_Publisher.py --input_topic=${INPUT_TOPIC} --payload=cloudfunction-jenkins/input.json
-                '''
+                sh 'python cloudfunction-jenkins/PubSub_Publisher.py --input_topic=input-topic --payload=cloudfunction-jenkins/input.json'
             }
         }
         stage('Listen to Output Payload') {
             steps {
-                sh '''
-                    ${PYTHON_PATH} cloudfunction-jenkins/PubSub_Listener.py --output_topic=${OUTPUT_TOPIC} --output_file=cloudfunction-jenkins/received_output.json
-                '''
+                sh 'python cloudfunction-jenkins/PubSub_Listener.py --output_topic=output-topic --output_file=cloudfunction-jenkins/received_output.json'
             }
         }
         stage('Verify Payload') {
             steps {
-                sh '''
-                    ${PYTHON_PATH} cloudfunction-jenkins/Verify_Payload.py --expected_output=cloudfunction-jenkins/expected_output.json --actual_output=cloudfunction-jenkins/received_output.json
-                '''
-            }
-        }
-        stage('Debug Environment') {
-            steps {
-                sh '''
-                    echo "Checking Python version:"
-                    ${PYTHON_PATH} --version
-                    echo "Current PATH: $PATH"
-                    which python3
-                '''
+                sh 'python cloudfunction-jenkins/Verify_Payload.py --expected_output=my-repo/expected_output.json --actual_output=cloudfunction-jenkins/received_output.json'
             }
         }
     }
 }
-
